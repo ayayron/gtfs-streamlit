@@ -13,4 +13,7 @@ pylint = "*"
 black = "==18.9b0"
 
 [requires]
-python_version = "3.7"
+python_version = "3.7.3"
+
+[scripts]
+app = "streamlit run ./app.py"
