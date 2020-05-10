@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+pydeck = "*"
+streamlit = "*"
+
+[dev-packages]
+pylint = "*"
+black = "==18.9b0"
+
+[requires]
+python_version = "3.7"
