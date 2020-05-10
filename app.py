@@ -6,6 +6,7 @@ import streamlit as st
 from gtfsviewer.sidebar import generate_sidebar
 from gtfsviewer.importer import GTFSFile
 
+
 def run():
     st.title("GTFS Viewer")
     options = generate_sidebar(st.sidebar)
@@ -47,6 +48,10 @@ def run():
                     latitude=37.76, longitude=-122.4, zoom=11, bearing=0, pitch=0
                 ),
                 layers=[map_layers],
+                tooltip={
+                    "html": "<b>Stop:</b> {name} <br/>",
+                    "style": {"backgroundColor": "steelblue", "color": "white"},
+                },
             )
         )
 
