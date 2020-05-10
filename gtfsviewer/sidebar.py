@@ -3,7 +3,7 @@ from datetime import date
 
 import streamlit as st
 
-from .time_utils import is_invalid_date, MIN_DATE, WEEKDAYS, YESTERDAY
+from gtfsviewer.time_utils import is_invalid_date, MIN_DATE, WEEKDAYS, YESTERDAY
 
 
 FILTERS = ["Date", "Hour", "Weekday"]
@@ -12,6 +12,7 @@ FILTERS = ["Date", "Hour", "Weekday"]
 @dataclass(frozen=True)
 class SelectedOptions:
     display_stops: bool
+    display_routes: bool
 
 
 def generate_sidebar(sb: st.sidebar):
@@ -28,9 +29,10 @@ def generate_sidebar(sb: st.sidebar):
     else:
         st.error(f"Error: Filter type {filter_type} is invalid.")
 
-    display_stops = sb.checkbox("Show Stops")
-    display_routes = sb.checkbox("Show Routes")
-    return SelectedOptions(display_stops)
+    return SelectedOptions(
+        display_stops=sb.checkbox("Show Stops"),
+        display_routes=sb.checkbox("Show Routes"),
+    )
 
 
 def select_filter_type(sb):

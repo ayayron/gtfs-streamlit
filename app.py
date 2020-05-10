@@ -4,25 +4,39 @@ import pydeck as pdk
 import streamlit as st
 
 from gtfsviewer.sidebar import generate_sidebar
-from gtfsviewer.importer import get_stops
-
+from gtfsviewer.importer import GTFSFile
 
 def run():
     st.title("GTFS Viewer")
     options = generate_sidebar(st.sidebar)
 
-    with st.spinner("Loading data..."):
+    with st.spinner("Loading GTFS data..."):
+        gtfs_data = GTFSFile("data/gtfs.zip")
+        gtfs_data.extractall()
+
+    with st.spinner("Updating map..."):
         map_layers = []
-        time.sleep(1)
         if options.display_stops:
-            stops = get_stops()
             map_layers.append(
                 pdk.Layer(
                     "ScatterplotLayer",
-                    data=stops,
+                    data=gtfs_data.stops,
                     get_position="[lon, lat]",
                     get_fill_color="[100, 30, 0, 160]",
                     get_radius=30,
+                    pickable=True,
+                )
+            )
+        if options.display_routes:
+            map_layers.append(
+                pdk.Layer(
+                    "PathLayer",
+                    data=gtfs_data.shapes,
+                    width_scale=20,
+                    width_min_pixels=1,
+                    get_path="path",
+                    get_width=1,
+                    get_color=(0, 0, 255, 255),
                 )
             )
 
