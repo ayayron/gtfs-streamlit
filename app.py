@@ -9,11 +9,11 @@ from gtfsviewer.importer import GTFSFile
 
 def run():
     st.title("GTFS Viewer")
-    options = generate_sidebar(st.sidebar)
-
     with st.spinner("Loading GTFS data..."):
         gtfs_data = GTFSFile("data/gtfs.zip")
         gtfs_data.extractall()
+
+    options = generate_sidebar(st.sidebar)
 
     with st.spinner("Updating map..."):
         map_layers = []

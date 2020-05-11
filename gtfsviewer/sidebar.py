@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
+from typing import Any
 
 import streamlit as st
 
@@ -13,25 +14,26 @@ FILTERS = ["Date", "Hour", "Weekday"]
 class SelectedOptions:
     display_stops: bool
     display_routes: bool
+    filter_type: str
+    filter_value: Any
 
 
 def generate_sidebar(sb: st.sidebar):
     filter_type = select_filter_type(sb)
     if filter_type == "Date":
-        selected_date = select_date(sb)
-        st.write(selected_date)
+        filter_value = select_date(sb)
     elif filter_type == "Hour":
-        selected_hour = select_hour(sb)
-        st.write(selected_hour)
+        filter_value = select_hour(sb)
     elif filter_type == "Weekday":
-        selected_weekday = select_weekday(sb)
-        st.write(selected_weekday)
+        filter_value = select_weekday(sb)
     else:
         st.error(f"Error: Filter type {filter_type} is invalid.")
 
     return SelectedOptions(
         display_stops=sb.checkbox("Show Stops"),
         display_routes=sb.checkbox("Show Routes"),
+        filter_type=filter_type,
+        filter_value=filter_value
     )
 
 
