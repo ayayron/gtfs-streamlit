@@ -16,6 +16,7 @@ class SelectedOptions:
     display_routes: bool
     filter_type: str
     filter_value: Any
+    uploaded_file: Any
 
 
 def generate_sidebar(sb: st.sidebar):
@@ -33,7 +34,8 @@ def generate_sidebar(sb: st.sidebar):
         display_stops=sb.checkbox("Show Stops"),
         display_routes=sb.checkbox("Show Routes"),
         filter_type=filter_type,
-        filter_value=filter_value
+        filter_value=filter_value,
+        uploaded_file=sb.file_uploader("Upload a gtfs.zip file"),
     )
 
 

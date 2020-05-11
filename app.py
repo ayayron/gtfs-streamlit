@@ -15,6 +15,10 @@ def run():
 
     options = generate_sidebar(st.sidebar)
 
+    if options.uploaded_file is not None:
+        gtfs_data = GTFSFile(options.uploaded_file)
+        gtfs_data.extractall()
+
     with st.spinner("Updating map..."):
         map_layers = []
         if options.display_stops:
